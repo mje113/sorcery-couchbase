@@ -3,8 +3,7 @@ require 'helper'
 class TestCouchbaseAdapter < Minitest::Test
 
   def setup
-    @email = 'bar@example.com'
-    TestUser.bucket.connect unless TestUser.bucket.connected?
+    user
   end
 
   def test_initialization
@@ -12,11 +11,15 @@ class TestCouchbaseAdapter < Minitest::Test
   end
 
   def test_find_by_credentials
-    user = TestUser.create!(email: @email, password: 's3cr3t')
-    assert_equal @email, TestUser.find_by_credentials([ @email ]).email
+    assert_equal user.email, TestUser.find_by_credentials([ user.email ]).email
   end
 
   def test_not_found_credentials
     assert_nil TestUser.find_by_credentials([ 'fu@example.com' ])
+  end
+
+  def test_can_authenticate
+    TestUser.authenticate(user.email, password)
+    assert_equal user.id, TestUser.authenticate(user.email, password).id
   end
 end
