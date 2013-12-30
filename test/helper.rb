@@ -14,7 +14,7 @@ class TestUser < Couchbase::Model
   authenticates_with_sorcery!
 end
 
-Couchbase.bucket.flush
+# Couchbase.bucket.flush
 
 class Minitest::Test
 

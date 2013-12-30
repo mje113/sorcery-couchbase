@@ -22,6 +22,7 @@ module Sorcery
               attribute sorcery_config.crypted_password_attribute_name
               attribute sorcery_config.salt_attribute_name
               attribute sorcery_config.activation_token_attribute_name  if sorcery_config.respond_to? :activation_token_attribute_name
+              attribute sorcery_config.activation_state_attribute_name  if sorcery_config.respond_to? :activation_token_attribute_name
               attribute sorcery_config.remember_me_token_attribute_name if sorcery_config.respond_to? :remember_me_token_attribute_name
               ensure_sorcery_design_document!
             end

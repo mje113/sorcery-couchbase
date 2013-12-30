@@ -12,7 +12,7 @@ class TestCouchbaseAdapter < Minitest::Test
   end
 
   def test_find_by_credentials
-    user = TestUser.create!(email: @email)
+    user = TestUser.create!(email: @email, password: 's3cr3t')
     assert_equal @email, TestUser.find_by_credentials([ @email ]).email
   end
 
