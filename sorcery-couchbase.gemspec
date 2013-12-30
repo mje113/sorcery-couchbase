@@ -8,9 +8,9 @@ Gem::Specification.new do |spec|
   spec.version       = SorceryCouchbase::VERSION
   spec.authors       = ['Mike Evans']
   spec.email         = ['mike@urlgonomics.com']
-  spec.description   = %q{Couchbase backend for Sorcery authentication framework}
-  spec.summary       = %q{Couchbase backend for Sorcery authentication framework}
-  spec.homepage      = ''
+  spec.description   = %q{Couchbase backend for the Sorcery authentication framework}
+  spec.summary       = %q{Couchbase backend for the Sorcery authentication framework}
+  spec.homepage      = 'https://github.com/mje113/sorcery-couchbase'
   spec.license       = 'MIT'
 
   spec.files         = `git ls-files`.split($/)

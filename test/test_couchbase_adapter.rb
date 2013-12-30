@@ -4,6 +4,7 @@ class TestCouchbaseAdapter < Minitest::Test
 
   def setup
     @email = 'bar@example.com'
+    TestUser.bucket.connect unless TestUser.bucket.connected?
   end
 
   def test_initialization
