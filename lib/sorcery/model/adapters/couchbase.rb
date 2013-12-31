@@ -28,8 +28,7 @@ module Sorcery
           end
 
           def credential_regex(credential)
-            return { :$regex =>  /^#{credential}$/i  } if (@sorcery_config.downcase_username_before_authenticating)
-            credential
+            @sorcery_config.downcase_username_before_authenticating ? credential.downcase : credential
           end
 
           def find_by_credentials(credentials)

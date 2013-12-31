@@ -19,6 +19,8 @@ end
 
 class TestUser < Couchbase::Model
   authenticates_with_sorcery!
+
+  attribute :role, default: 'user'
 end
 
 Couchbase.bucket.flush

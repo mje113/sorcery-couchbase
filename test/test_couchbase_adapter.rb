@@ -22,4 +22,9 @@ class TestCouchbaseAdapter < Minitest::Test
     TestUser.authenticate(user.email, password)
     assert_equal user.id, TestUser.authenticate(user.email, password).id
   end
+
+  def test_can_update_atributes
+    assert user.update_many_attributes(role: 'admin')
+    assert_equal 'admin', user.role
+  end
 end
