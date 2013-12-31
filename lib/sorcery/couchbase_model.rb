@@ -41,7 +41,6 @@ module Sorcery
               'language' => 'javascript',
               'views' => {
                 'all' => {
-                  'reduce' => '_count',
                   'map' => <<-JS
                     function (doc, meta) {
                       if (doc.type && doc.type == '#{design_document}')
