@@ -24,7 +24,7 @@ module Sorcery
         module ClassMethods
 
           def sorcery_view(view)
-            ::Couchbase::View.new(bucket, "_design/sorcery_#{design_document}/_view/by_#{view}", { wrapper_class: self, include_docs: true })
+            ::Couchbase::View.new(bucket, "_design/#{design_document}/_view/by_#{view}", { wrapper_class: self, include_docs: true })
           end
 
           def credential_regex(credential)

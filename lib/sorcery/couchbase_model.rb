@@ -24,6 +24,8 @@ module Sorcery
               attribute sorcery_config.activation_token_attribute_name  if sorcery_config.respond_to? :activation_token_attribute_name
               attribute sorcery_config.activation_state_attribute_name  if sorcery_config.respond_to? :activation_token_attribute_name
               attribute sorcery_config.remember_me_token_attribute_name if sorcery_config.respond_to? :remember_me_token_attribute_name
+
+              view *_sorcery_view_attributes
               ensure_sorcery_design_document!
             end
           end
@@ -34,7 +36,7 @@ module Sorcery
 
           def _sorcery_design_doc
             doc = {
-              '_id'      => "_design/sorcery_#{design_document}",
+              '_id'      => "_design/#{design_document}",
               'language' => 'javascript',
               'views' => {
                 'all' => {
@@ -49,12 +51,7 @@ module Sorcery
               }
             }
 
-            attributes = sorcery_config.username_attribute_names
-            attributes << sorcery_config.activation_token_attribute_name  if sorcery_config.respond_to? :activation_token_attribute_name
-            attributes << sorcery_config.remember_me_token_attribute_name if sorcery_config.respond_to? :remember_me_token_attribute_name
-            attributes << sorcery_config.email_attribute_name
-
-            attributes.uniq.each do |attribute|
+            _sorcery_view_attributes.each do |attribute|
               doc['views']["by_#{attribute}"] = {
                 'map' => <<-JS
                   function (doc, meta) {
@@ -68,6 +65,13 @@ module Sorcery
             doc
           end
 
+          def _sorcery_view_attributes
+            attributes = sorcery_config.username_attribute_names
+            attributes << sorcery_config.activation_token_attribute_name  if sorcery_config.respond_to? :activation_token_attribute_name
+            attributes << sorcery_config.remember_me_token_attribute_name if sorcery_config.respond_to? :remember_me_token_attribute_name
+            attributes << sorcery_config.email_attribute_name
+            attributes.uniq
+          end
         end
       end
     end
