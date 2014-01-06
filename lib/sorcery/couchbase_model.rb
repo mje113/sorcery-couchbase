@@ -25,6 +25,21 @@ module Sorcery
               attribute sorcery_config.activation_state_attribute_name  if sorcery_config.respond_to? :activation_token_attribute_name
               attribute sorcery_config.remember_me_token_attribute_name if sorcery_config.respond_to? :remember_me_token_attribute_name
 
+              if sorcery_config.respond_to? :remember_me_token_expires_at_attribute_name
+                attribute sorcery_config.remember_me_token_expires_at_attribute_name
+                define_method sorcery_config.remember_me_token_expires_at_attribute_name do
+                  time = read_attribute(sorcery_config.remember_me_token_expires_at_attribute_name)
+                  case time
+                  when Array
+                    Time.utc *time
+                  when String
+                    Time.new time
+                  else
+                    raise ArgumentError, 'Remember me token stored incorrectly'
+                  end
+                end
+              end
+
               view :all
               view *_sorcery_view_attributes.map { |attr| "by_#{attr}" }
               ensure_sorcery_design_document!
