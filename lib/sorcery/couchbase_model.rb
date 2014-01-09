@@ -35,7 +35,7 @@ module Sorcery
                   when String
                     Time.new time
                   else
-                    raise ArgumentError, 'Remember me token stored incorrectly'
+                    time
                   end
                 end
               end
