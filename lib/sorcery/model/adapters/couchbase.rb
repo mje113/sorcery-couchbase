@@ -57,9 +57,8 @@ module Sorcery
             find_by_credentials(username)
           end
 
-
           def find_by_sorcery_token(token_attr_name, token)
-            where(token_attr_name => token).first
+            sorcery_view(token_attr_name).fetch(key: token, stale: false).first
           end
 
           def find_by_email(email)
