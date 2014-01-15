@@ -21,12 +21,17 @@ module Sorcery
               attribute sorcery_config.email_attribute_name unless sorcery_config.username_attribute_names.include?(sorcery_config.email_attribute_name)
               attribute sorcery_config.crypted_password_attribute_name
               attribute sorcery_config.salt_attribute_name
-              attribute sorcery_config.activation_token_attribute_name  if sorcery_config.respond_to? :activation_token_attribute_name
-              attribute sorcery_config.activation_state_attribute_name  if sorcery_config.respond_to? :activation_token_attribute_name
-              attribute sorcery_config.remember_me_token_attribute_name if sorcery_config.respond_to? :remember_me_token_attribute_name
+
+              if sorcery_config.respond_to? :activation_token_attribute_name
+                attribute sorcery_config.activation_token_attribute_name
+                attribute sorcery_config.activation_state_attribute_name
+                attribute sorcery_config.activation_token_expires_at_attribute_name
+              end
 
               if sorcery_config.respond_to? :remember_me_token_expires_at_attribute_name
+                attribute sorcery_config.remember_me_token_attribute_name
                 attribute sorcery_config.remember_me_token_expires_at_attribute_name
+
                 define_method sorcery_config.remember_me_token_expires_at_attribute_name do
                   time = read_attribute(sorcery_config.remember_me_token_expires_at_attribute_name)
                   case time
