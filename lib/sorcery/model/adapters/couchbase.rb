@@ -53,6 +53,10 @@ module Sorcery
             sorcery_view(sorcery_config.remember_me_token_attribute_name).fetch(key: token, stale: false).first
           end
 
+          def find_by_reset_password_token(token)
+            sorcery_view(sorcery_config.reset_password_token_attribute_name).fetch(key: token, stale: false).first
+          end
+
           def find_by_username(username)
             find_by_credentials(username)
           end
@@ -65,6 +69,11 @@ module Sorcery
             where(sorcery_config.email_attribute_name => email).first
           end
 
+          # add this method in order to be compatible with sorcery in reset_password
+          # see: https://github.com/NoamB/sorcery/blob/db47df2c448cbab1ef8fc68d81d697a84c9cd585/lib/sorcery/model/submodules/reset_password.rb#L119
+          def transaction(&blk)
+            tap(&blk)
+          end
           # def get_current_users
           #   config = sorcery_config
           #   where(config.last_activity_at_attribute_name.ne => nil) \

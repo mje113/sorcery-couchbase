@@ -89,6 +89,7 @@ module Sorcery
             attributes = sorcery_config.username_attribute_names
             attributes << sorcery_config.activation_token_attribute_name  if sorcery_config.respond_to? :activation_token_attribute_name
             attributes << sorcery_config.remember_me_token_attribute_name if sorcery_config.respond_to? :remember_me_token_attribute_name
+            attributes << sorcery_config.reset_password_token_attribute_name if sorcery_config.respond_to? :reset_password_token_attribute_name
             attributes << sorcery_config.email_attribute_name
             attributes.uniq
           end
